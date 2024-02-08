@@ -1,0 +1,74 @@
+---
+title: "Lab Exercise 1"
+output: pdf_document
+date: "2024-02-08"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+
+install.packages(rvest)
+install.packages(dplyr)
+install.packages(polite)
+install.packages(tidyverse)
+
+library(rvest)
+library(dplyr)
+library(polite)
+library(tidyverse)
+
+```
+
+```{r}
+library(rvest)
+library(dplyr)
+library(polite)
+
+url <- "https://www.amazon.co.uk/s?bbn=428652031&rh=n%3A428652031%2Cp_n_feature_eighteen_browse-bin%3A65675343031&dc&qid=1707357020&rnid=65675330031&ref=lp_428652031_nr_p_n_feature_eighteen_browse-bin_3"
+
+session <- bow(url,user_agent = "For Educational Purposes")
+
+amazon <- read_html(url)
+
+```
+
+```{r}
+
+monitor <- scrape(session) %>%
+  html_nodes("span.a-text-normal") %>%
+  html_text
+monitor25 <- monitor[1:24]
+monitor25
+
+```
+
+```{r}
+
+monitor_prices <- scrape(session) %>%
+  html_nodes("span.a-price-whole") %>%
+  html_text
+monitor_prices
+
+```
+
+```{r}
+
+monitor_Ratings <- scrape(session) %>%
+  html_nodes("i.a-icon.a-icon-star-small.a-star-small-4.aok-align-bottom") %>%
+  html_text
+monitor_Ratings
+
+```
+
+```{r}
+
+
+monitor_noReviews <- scrape(session) %>%
+  html_nodes("span.a-size-base.s-underline-text") %>%
+  html_text
+monitor_noReviews
+
+```
