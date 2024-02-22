@@ -1,0 +1,832 @@
+---
+title: "Lab Exercise 2"
+output: html_document
+date: "2024-02-15"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+
+
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+product1 <- data.frame()
+
+for (page in 1:5) {
+  link1 <- paste0("https://www.amazon.com.au/HCE-Hex-Dumbbells-Set-Bodybuilding/product-reviews/B0BHW38XXX/ref=cm_cr_dp_d_show_all_btm_next_", page, "?ie=UTF8&reviewerType=all_reviews&pageNumber=", page)
+  session1 <- bow(link1, user_agent = "Educational Purpose")
+
+  scrapeNodes <- function(selector) {
+    scrape(session1) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+  }
+
+  productName <- "HCE Hex Dumbbells Set - Rubber Coated Dumbbells Black Hex Dumbbell Weights"
+  scrapedTitle <- scrapeNodes("span.a-size-base.review-title.a-color-base.review-title-content.a-text-bold")[1:10]
+  scrapedReviewer <- scrapeNodes("span.a-profile-name")[1:10]
+  scrapedReview <- scrapeNodes("span.a-size-base.review-text.review-text-content")[1:10]
+  scrapedDate <- scrapeNodes("span.a-size-base.a-color-secondary.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.a-icon-alt")[1:10]
+  scrapedType <- scrapeNodes("span.a-size-mini.a-color-state.a-text-bold")[1:10]
+
+  product1 <- rbind(product1, data.frame(
+    prod_name = productName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_purchase = scrapedType
+  ))
+
+  #Sys.sleep(3)
+}
+
+#View(product1)
+
+```
+
+```{r}
+
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+product2 <- data.frame()
+
+for (page in 1:5) {
+  link2 <- paste0("https://www.amazon.com.au/SERTT-Weight-Upgraded-Attachments-Workouts/product-reviews/B095NZKSP2/ref=cm_cr_dp_d_show_all_btm_next_", page, "?ie=UTF8&reviewerType=all_reviews&pageNumber=", page)
+  session2 <- bow(link2, user_agent = "Educational Purpose")
+
+  scrapeNodes <- function(selector) {
+    scrape(session2) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+  }
+
+  productName <- "HSERTT Weight Cable Pulley System Gym"
+  scrapedTitle <- scrapeNodes("span.a-size-base.review-title.a-color-base.review-title-content.a-text-bold")[1:10]
+  scrapedReviewer <- scrapeNodes("span.a-profile-name")[1:10]
+  scrapedReview <- scrapeNodes("span.a-size-base.review-text.review-text-content")[1:10]
+  scrapedDate <- scrapeNodes("span.a-size-base.a-color-secondary.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.a-icon-alt")[1:10]
+  scrapedType <- scrapeNodes("span.a-size-mini.a-color-state.a-text-bold")[1:10]
+
+  product2 <- rbind(product2, data.frame(
+    prod_name = productName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_purchase = scrapedType
+  ))
+
+  #Sys.sleep(3)
+}
+
+#View(product2)
+
+```
+
+
+```{r}
+
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+product3 <- data.frame()
+
+for (page in 1:5) {
+  link3 <- paste0("https://www.amazon.com.au/CKDCARES-Roller-Abdominal-Workout-Equipment/product-reviews/B0918NNB1S/ref=cm_cr_dp_d_show_all_btm_next_", page, "?ie=UTF8&reviewerType=all_reviews&pageNumber=", page)
+  session3 <- bow(link3, user_agent = "Educational Purpose")
+
+  scrapeNodes <- function(selector) {
+    scrape(session3) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+  }
+
+  productName <- "CKDCARES Ab Wheel Roller with Knee Pad Abdominal Workout Equipment for Home Gym"
+  scrapedTitle <- scrapeNodes("span.a-size-base.review-title.a-color-base.review-title-content.a-text-bold")[1:10]
+  scrapedReviewer <- scrapeNodes("span.a-profile-name")[1:10]
+  scrapedReview <- scrapeNodes("span.a-size-base.review-text.review-text-content")[1:10]
+  scrapedDate <- scrapeNodes("span.a-size-base.a-color-secondary.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.a-icon-alt")[1:10]
+  scrapedType <- scrapeNodes("span.a-size-mini.a-color-state.a-text-bold")[1:10]
+
+  product3 <- rbind(product3, data.frame(
+    prod_name = productName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_purchase = scrapedType
+  ))
+
+ # Sys.sleep(3)
+}
+
+#View(product3)
+
+
+```
+
+```{r}
+
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+product4 <- data.frame()
+
+for (page in 1:5) {
+  link4 <- paste0("https://www.amazon.com.au/PROIRON-Resistance-Bands-Assisted-Powerlifting/product-reviews/B07P8JSGLF/ref=cm_cr_dp_d_show_all_btm_next_", page, "?ie=UTF8&reviewerType=all_reviews&pageNumber=", page)
+  session4 <- bow(link4, user_agent = "Educational Purpose")
+
+  scrapeNodes <- function(selector) {
+    scrape(session4) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+  }
+
+  productName <- "PROIRON Pull Up Bands Heavy Duty Resistance Band"
+  scrapedTitle <- scrapeNodes("span.a-size-base.review-title.a-color-base.review-title-content.a-text-bold")[1:10]
+  scrapedReviewer <- scrapeNodes("span.a-profile-name")[1:10]
+  scrapedReview <- scrapeNodes("span.a-size-base.review-text.review-text-content")[1:10]
+  scrapedDate <- scrapeNodes("span.a-size-base.a-color-secondary.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.a-icon-alt")[1:10]
+  scrapedType <- scrapeNodes("span.a-size-mini.a-color-state.a-text-bold")[1:10]
+
+  product4 <- rbind(product4, data.frame(
+    prod_name = productName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_purchase = scrapedType
+  ))
+
+  #Sys.sleep(3)
+}
+
+#View(product4)
+
+```
+
+
+```{r}
+
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+product5 <- data.frame()
+
+for (page in 1:5) {
+  link5 <- paste0("https://www.amazon.com.au/Fat-Gripz-Pro-Forearms-Magazine/product-reviews/B07QKML1SL/ref=cm_cr_dp_d_show_all_btm_next_", page, "?ie=UTF8&reviewerType=all_reviews&pageNumber=", page)
+  session5 <- bow(link5, user_agent = "Educational Purpose")
+
+  scrapeNodes <- function(selector) {
+    scrape(session5) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+  }
+
+  productName <- "Fat Gripz Pro"
+  scrapedTitle <- scrapeNodes("span.a-size-base.review-title.a-color-base.review-title-content.a-text-bold")[1:10]
+  scrapedReviewer <- scrapeNodes("span.a-profile-name")[1:10]
+  scrapedReview <- scrapeNodes("span.a-size-base.review-text.review-text-content")[1:10]
+  scrapedDate <- scrapeNodes("span.a-size-base.a-color-secondary.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.a-icon-alt")[1:10]
+  scrapedType <- scrapeNodes("span.a-size-mini.a-color-state.a-text-bold")[1:10]
+
+  product5 <- rbind(product5, data.frame(
+    prod_name = productName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_purchase = scrapedType
+  ))
+
+  #Sys.sleep(3)
+}
+
+#View(product5)
+
+```
+
+```{r}
+
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+product6 <- data.frame()
+
+for (page in 1:5) {
+  link6 <- paste0("https://www.amazon.com.au/Olympic-Barbell-Weightlifting-Dumbbell-Straight/product-reviews/B07B46MPYT/ref=cm_cr_dp_d_show_all_btm_next_", page, "?ie=UTF8&reviewerType=all_reviews&pageNumber=", page)
+  session6 <- bow(link6, user_agent = "Educational Purpose")
+
+  scrapeNodes <- function(selector) {
+    scrape(session6) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+  }
+
+  productName <- "METEOR Olympic Barbell"
+  scrapedTitle <- scrapeNodes("span.a-size-base.review-title.a-color-base.review-title-content.a-text-bold")[1:10]
+  scrapedReviewer <- scrapeNodes("span.a-profile-name")[1:10]
+  scrapedReview <- scrapeNodes("span.a-size-base.review-text.review-text-content")[1:10]
+  scrapedDate <- scrapeNodes("span.a-size-base.a-color-secondary.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.a-icon-alt")[1:10]
+  scrapedType <- scrapeNodes("span.a-size-mini.a-color-state.a-text-bold")[1:10]
+
+  product6 <- rbind(product6, data.frame(
+    prod_name = productName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_purchase = scrapedType
+  ))
+
+  #Sys.sleep(3)
+}
+
+#View(product6)
+
+```
+
+```{r}
+
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+product7 <- data.frame()
+
+for (page in 1:5) {
+  link7 <- paste0("https://www.amazon.com.au/Olympic-Barbell-Weightlifting-Dumbbell-Straight/product-reviews/B07B46MPYT/ref=cm_cr_dp_d_show_all_btm_next_", page, "?ie=UTF8&reviewerType=all_reviews&pageNumber=", page)
+  session7 <- bow(link7, user_agent = "Educational Purpose")
+
+  scrapeNodes <- function(selector) {
+    scrape(session7) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+  }
+
+  productName <- "METEOR Olympic Barbell"
+  scrapedTitle <- scrapeNodes("span.a-size-base.review-title.a-color-base.review-title-content.a-text-bold")[1:10]
+  scrapedReviewer <- scrapeNodes("span.a-profile-name")[1:10]
+  scrapedReview <- scrapeNodes("span.a-size-base.review-text.review-text-content")[1:10]
+  scrapedDate <- scrapeNodes("span.a-size-base.a-color-secondary.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.a-icon-alt")[1:10]
+  scrapedType <- scrapeNodes("span.a-size-mini.a-color-state.a-text-bold")[1:10]
+
+  product7 <- rbind(product7, data.frame(
+    prod_name = productName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_purchase = scrapedType
+  ))
+
+  #Sys.sleep(3)
+}
+
+#View(product7)
+
+
+```
+
+
+```{r}
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+product8 <- data.frame()
+
+for (page in 1:5) {
+  link8 <- paste0("https://www.amazon.com.au/Prosource-Ultimate-Connector-Unisex-Adult-ps-1064-ds-black/product-reviews/B07BHWFH1W/ref=cm_cr_dp_d_show_all_btm_next_", page, "?ie=UTF8&reviewerType=all_reviews&pageNumber=", page)
+  session8 <- bow(link8, user_agent = "Educational Purpose")
+
+  scrapeNodes <- function(selector) {
+    scrape(session8) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+  }
+
+  productName <- "Prosource Fit Dip Stand Station"
+  scrapedTitle <- scrapeNodes("span.a-size-base.review-title.a-color-base.review-title-content.a-text-bold")[1:10]
+  scrapedReviewer <- scrapeNodes("span.a-profile-name")[1:10]
+  scrapedReview <- scrapeNodes("span.a-size-base.review-text.review-text-content")[1:10]
+  scrapedDate <- scrapeNodes("span.a-size-base.a-color-secondary.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.a-icon-alt")[1:10]
+  scrapedType <- scrapeNodes("span.a-size-mini.a-color-state.a-text-bold")[1:10]
+
+  product8 <- rbind(product8, data.frame(
+    prod_name = productName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_purchase = scrapedType
+  ))
+
+  Sys.sleep(3)
+}
+
+View(product8)
+
+
+```
+
+
+```{r}
+
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+product9 <- data.frame()
+
+for (page in 1:5) {
+  link9 <- paste0("https://www.amazon.com.au/Sunny-Health-Fitness-Unisexs-SF-S020027/product-reviews/B08NFHFNXV/ref=cm_cr_dp_d_show_all_btm_next_", page, "?ie=UTF8&reviewerType=all_reviews&pageNumber=", page)
+  session9 <- bow(link9, user_agent = "Educational Purpose")
+
+  scrapeNodes <- function(selector) {
+    scrape(session9) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+  }
+
+  productName <- "Sunny Health & Fitness Twisting Stair Stepper Machine"
+  scrapedTitle <- scrapeNodes("span.a-size-base.review-title.a-color-base.review-title-content.a-text-bold")[1:10]
+  scrapedReviewer <- scrapeNodes("span.a-profile-name")[1:10]
+  scrapedReview <- scrapeNodes("span.a-size-base.review-text.review-text-content")[1:10]
+  scrapedDate <- scrapeNodes("span.a-size-base.a-color-secondary.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.a-icon-alt")[1:10]
+  scrapedType <- scrapeNodes("span.a-size-mini.a-color-state.a-text-bold")[1:10]
+
+  product9 <- rbind(product9, data.frame(
+    prod_name = productName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_purchase = scrapedType
+  ))
+
+  #Sys.sleep(3)
+}
+
+#View(product9)
+
+```
+
+
+```{r}
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+product10 <- data.frame()
+
+for (page in 1:5) {
+  link10 <- paste0("https://www.amazon.com.au/1-SIZE-Iron-Gym/product-reviews/B001EJMS6K/ref=cm_cr_dp_d_show_all_btm_next_", page, "?ie=UTF8&reviewerType=all_reviews&pageNumber=", page)
+  session10 <- bow(link10, user_agent = "Educational Purpose")
+
+  scrapeNodes <- function(selector) {
+    scrape(session10) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+  }
+
+  productName <- "Iron Gym Pull Up Bars"
+  scrapedTitle <- scrapeNodes("span.a-size-base.review-title.a-color-base.review-title-content.a-text-bold")[1:10]
+  scrapedReviewer <- scrapeNodes("span.a-profile-name")[1:10]
+  scrapedReview <- scrapeNodes("span.a-size-base.review-text.review-text-content")[1:10]
+  scrapedDate <- scrapeNodes("span.a-size-base.a-color-secondary.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.a-icon-alt")[1:10]
+  scrapedType <- scrapeNodes("span.a-size-mini.a-color-state.a-text-bold")[1:10]
+
+  product10 <- rbind(product10, data.frame(
+    prod_name = productName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_purchase = scrapedType
+  ))
+
+  #Sys.sleep(3)
+}
+
+#View(product10)
+
+```
+
+
+```{r}
+
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+product11 <- data.frame()
+
+for (page in 1:5) {
+  link11 <- paste0("https://www.amazon.com.au/INNOCEDAR-Resistance-60-180LBS-Adjustable-Equipment/product-reviews/B08NYBZLNM/ref=cm_cr_dp_d_show_all_btm_next_", page, "?ie=UTF8&reviewerType=all_reviews&pageNumber=", page)
+  session11 <- bow(link11, user_agent = "Educational Purpose")
+
+  scrapeNodes <- function(selector) {
+    scrape(session11) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+  }
+
+  productName <- "INNOCEDAR Home Gym Bar Kit with Resistance Bands"
+  scrapedTitle <- scrapeNodes("span.a-size-base.review-title.a-color-base.review-title-content.a-text-bold")[1:10]
+  scrapedReviewer <- scrapeNodes("span.a-profile-name")[1:10]
+  scrapedReview <- scrapeNodes("span.a-size-base.review-text.review-text-content")[1:10]
+  scrapedDate <- scrapeNodes("span.a-size-base.a-color-secondary.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.a-icon-alt")[1:10]
+  scrapedType <- scrapeNodes("span.a-size-mini.a-color-state.a-text-bold")[1:10]
+
+  product11 <- rbind(product11, data.frame(
+    prod_name = productName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_purchase = scrapedType
+  ))
+
+  #Sys.sleep(3)
+}
+
+#View(product11)
+
+```
+
+
+```{r}
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+product12 <- data.frame()
+
+for (page in 1:5) {
+  link12 <- paste0("https://www.amazon.com.au/HCE-Barbell-Dumbbell-Weight-Plates/product-reviews/B079YTXZFY/ref=cm_cr_dp_d_show_all_btm_next_", page, "?ie=UTF8&reviewerType=all_reviews&pageNumber=", page)
+  session12 <- bow(link12, user_agent = "Educational Purpose")
+
+  scrapeNodes <- function(selector) {
+    scrape(session12) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+  }
+
+  productName <- "HCE Hex Barbell Weights"
+  scrapedTitle <- scrapeNodes("span.a-size-base.review-title.a-color-base.review-title-content.a-text-bold")[1:10]
+  scrapedReviewer <- scrapeNodes("span.a-profile-name")[1:10]
+  scrapedReview <- scrapeNodes("span.a-size-base.review-text.review-text-content")[1:10]
+  scrapedDate <- scrapeNodes("span.a-size-base.a-color-secondary.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.a-icon-alt")[1:10]
+  scrapedType <- scrapeNodes("span.a-size-mini.a-color-state.a-text-bold")[1:10]
+
+  product12 <- rbind(product12, data.frame(
+    prod_name = productName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_purchase = scrapedType
+  ))
+
+ #Sys.sleep(3)
+}
+
+#View(product12)
+
+
+```
+
+
+```{r}
+
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+product13 <- data.frame()
+
+for (page in 1:5) {
+  link13 <- paste0("https://www.amazon.com.au/LALAHIGH-Equipment-Upgraded-Foldable-Resistance/product-reviews/B0B3487C5T/ref=cm_cr_dp_d_show_all_btm_next_", page, "?ie=UTF8&reviewerType=all_reviews&pageNumber=", page)
+  session13 <- bow(link13, user_agent = "Educational Purpose")
+
+  scrapeNodes <- function(selector) {
+    scrape(session13) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+  }
+
+  productName <- "LALAHIGH Push Up Board"
+  scrapedTitle <- scrapeNodes("span.a-size-base.review-title.a-color-base.review-title-content.a-text-bold")[1:10]
+  scrapedReviewer <- scrapeNodes("span.a-profile-name")[1:10]
+  scrapedReview <- scrapeNodes("span.a-size-base.review-text.review-text-content")[1:10]
+  scrapedDate <- scrapeNodes("span.a-size-base.a-color-secondary.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.a-icon-alt")[1:10]
+  scrapedType <- scrapeNodes("span.a-size-mini.a-color-state.a-text-bold")[1:10]
+
+  product13 <- rbind(product13, data.frame(
+    prod_name = productName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_purchase = scrapedType
+  ))
+
+  #Sys.sleep(3)
+}
+
+#View(product13)
+
+```
+
+
+```{r}
+
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+product14 <- data.frame()
+
+for (page in 1:5) {
+  link14 <- paste0("https://www.amazon.com.au/Adjustable-Hammertone-Dumbbell-Strength-Equipment/product-reviews/B079P35XZY/ref=cm_cr_dp_d_show_all_btm_next_", page, "?ie=UTF8&reviewerType=all_reviews&pageNumber=", page)
+  session14 <- bow(link14, user_agent = "Educational Purpose")
+
+  scrapeNodes <- function(selector) {
+    scrape(session14) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+  }
+
+  productName <- "HCE Adjustable Dumbbells Set"
+  scrapedTitle <- scrapeNodes("span.a-size-base.review-title.a-color-base.review-title-content.a-text-bold")[1:10]
+  scrapedReviewer <- scrapeNodes("span.a-profile-name")[1:10]
+  scrapedReview <- scrapeNodes("span.a-size-base.review-text.review-text-content")[1:10]
+  scrapedDate <- scrapeNodes("span.a-size-base.a-color-secondary.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.a-icon-alt")[1:10]
+  scrapedType <- scrapeNodes("span.a-size-mini.a-color-state.a-text-bold")[1:10]
+
+  product14 <- rbind(product14, data.frame(
+    prod_name = productName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_purchase = scrapedType
+  ))
+
+  Sys.sleep(3)
+}
+
+View(product14)
+
+```
+
+
+```{r}
+
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+product15 <- data.frame()
+
+for (page in 1:5) {
+  link15 <- paste0("https://www.amazon.com.au/Resistance-Extenseurs-Résistance-Musculation-Rééducation/product-reviews/B078XCK6SF/ref=cm_cr_dp_d_show_all_btm_next_", page, "?ie=UTF8&reviewerType=all_reviews&pageNumber=", page)
+  session15 <- bow(link15, user_agent = "Educational Purpose")
+
+  scrapeNodes <- function(selector) {
+    scrape(session15) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+  }
+
+  productName <- "Resistance Bands Set of 5 with Handle Strength Exercise Resistance Band"
+  scrapedTitle <- scrapeNodes("span.a-size-base.review-title.a-color-base.review-title-content.a-text-bold")[1:10]
+  scrapedReviewer <- scrapeNodes("span.a-profile-name")[1:10]
+  scrapedReview <- scrapeNodes("span.a-size-base.review-text.review-text-content")[1:10]
+  scrapedDate <- scrapeNodes("span.a-size-base.a-color-secondary.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.a-icon-alt")[1:10]
+  scrapedType <- scrapeNodes("span.a-size-mini.a-color-state.a-text-bold")[1:10]
+
+  product15 <- rbind(product15, data.frame(
+    prod_name = productName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_purchase = scrapedType
+  ))
+
+  Sys.sleep(3)
+}
+
+View(product15)
+
+```
+
+```{r}
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+product16 <- data.frame()
+
+for (page in 1:5) {
+  link16 <- paste0("https://www.amazon.com.au/HCE-Standard-Weight-Dumbbell-Barbell/product-reviews/B079YX1X5C/ref=cm_cr_dp_d_show_all_btm_next_", page, "?ie=UTF8&reviewerType=all_reviews&pageNumber=", page)
+  session16 <- bow(link16, user_agent = "Educational Purpose")
+
+  scrapeNodes <- function(selector) {
+    scrape(session16) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+  }
+
+  productName <- "HCE Standard Rubbercoated Weight Plate for Dumbbell and Barbell"
+  scrapedTitle <- scrapeNodes("span.a-size-base.review-title.a-color-base.review-title-content.a-text-bold")[1:10]
+  scrapedReviewer <- scrapeNodes("span.a-profile-name")[1:10]
+  scrapedReview <- scrapeNodes("span.a-size-base.review-text.review-text-content")[1:10]
+  scrapedDate <- scrapeNodes("span.a-size-base.a-color-secondary.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.a-icon-alt")[1:10]
+  scrapedType <- scrapeNodes("span.a-size-mini.a-color-state.a-text-bold")[1:10]
+
+  product16 <- rbind(product16, data.frame(
+    prod_name = productName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_purchase = scrapedType
+  ))
+
+  Sys.sleep(3)
+}
+
+View(product16)
+
+```
+
+
+```{r}
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+product17 <- data.frame()
+
+for (page in 1:5) {
+  link17 <- paste0("https://www.amazon.com.au/HCE-Stackable-Organiser-Heavy-Duty-Commercial/product-reviews/B079WYLW5M/ref=cm_cr_dp_d_show_all_btm_next_", page, "?ie=UTF8&reviewerType=all_reviews&pageNumber=", page)
+  session17 <- bow(link17, user_agent = "Educational Purpose")
+
+  scrapeNodes <- function(selector) {
+    scrape(session17) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+  }
+
+  productName <- "HCE Vertical Olympic Bumper Plate Rack with Wheels"
+  scrapedTitle <- scrapeNodes("span.a-size-base.review-title.a-color-base.review-title-content.a-text-bold")[1:10]
+  scrapedReviewer <- scrapeNodes("span.a-profile-name")[1:10]
+  scrapedReview <- scrapeNodes("span.a-size-base.review-text.review-text-content")[1:10]
+  scrapedDate <- scrapeNodes("span.a-size-base.a-color-secondary.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.a-icon-alt")[1:10]
+  scrapedType <- scrapeNodes("span.a-size-mini.a-color-state.a-text-bold")[1:10]
+
+  product17 <- rbind(product17, data.frame(
+    prod_name = productName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_purchase = scrapedType
+  ))
+
+  Sys.sleep(3)
+}
+
+View(product17)
+
+
+```
+
+
+```{r}
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+library(selectr)
+
+product18 <- data.frame()
+
+for (page in 1:5) {
+  link18 <- paste0("https://www.amazon.com.au/Resistance-Working-Exercise-Assistance-Equipment/product-reviews/B0BTRTPNY4/ref=cm_cr_dp_d_show_all_btm_next_", page, "?ie=UTF8&reviewerType=all_reviews&pageNumber=", page)
+  session18 <- bow(link18, user_agent = "Educational Purpose")
+
+  scrapeNodes <- function(selector) {
+    scrape(session18) %>%
+      html_nodes(selector) %>%
+      html_text(trim = TRUE)
+  }
+
+  productName <- "VEICK Resistance Bands for Working Out"
+  scrapedTitle <- scrapeNodes("span.a-size-base.review-title.a-color-base.review-title-content.a-text-bold")[1:10]
+  scrapedReviewer <- scrapeNodes("span.a-profile-name")[1:10]
+  scrapedReview <- scrapeNodes("span.a-size-base.review-text.review-text-content")[1:10]
+  scrapedDate <- scrapeNodes("span.a-size-base.a-color-secondary.review-date")[1:10]
+  scrapedRating <- scrapeNodes("span.a-icon-alt")[1:10]
+  scrapedType <- scrapeNodes("span.a-size-mini.a-color-state.a-text-bold")[1:10]
+
+  product18 <- rbind(product18, data.frame(
+    prod_name = productName,
+    title = scrapedTitle,
+    reviewer = scrapedReviewer,
+    review = scrapedReview,
+    date = scrapedDate,
+    ratings = scrapedRating,
+    type_of_purchase = scrapedType
+  ))
+
+  Sys.sleep(3)
+}
+
+View(product18)
+
+```
