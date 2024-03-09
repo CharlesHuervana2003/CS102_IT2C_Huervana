@@ -1,0 +1,70 @@
+---
+title: "Lab Exercise 1"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+date: "2024-02-08"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+
+library(tidyverse)
+library(rvest)
+library(dplyr)
+library(polite)
+library(httr)
+library(ggplot2)
+library(xml2)
+```
+
+
+```{r}
+#1
+#Gaming Accessories(Mouse)
+
+computerCat <- "https://www.amazon.com/s?k=gaming+mouse&_encoding=UTF8&content-id=amzn1.sym.12129333-2117-4490-9c17-6d31baf0582a&pd_rd_r=0c3aafb7-e4cf-4047-b427-ef7f984758e5&pd_rd_w=I43qq&pd_rd_wg=4znff&pf_rd_p=12129333-2117-4490-9c17-6d31baf0582a&pf_rd_r=6JZ3TZPDJGT65KGA6E3G&ref=pd_gw_unk"
+
+session <- session(computerCat, user_agent = "Educational Purposes")
+
+
+mouse <- scrape(session ) %>% 
+  html_nodes('span.a-size-medium.a-color-base.a-text-normal') %>% 
+  html_text()
+mouse
+
+
+```
+
+```{r}
+#1
+#Gaming Accessories(Headsets)
+
+Headsets <- scrape(session) %>% 
+  html_nodes('spa.a-size-mini a-spacing-none a-color-base s-line-clamp-2') %>% 
+  html_text()
+Headsets
+
+
+```
+
+```{r}
+#Select 10 products
+
+
+firstProduct <- "https://www.amazon.com/KTC-FreeSync-120-sRGB-DisplayPort-Computer/dp/B0CHRC5W6Z/ref=sr_1_1_sspa?qid=1707355547&s=computers-intl-ship&sr=1-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGZfYnJvd3Nl&th=1"
+
+session <- bow(firstProduct, user_agent = "Educational Purposes")
+session
+
+
+monitor <- scrape(session ) %>% 
+  html_nodes('h1.a-size-large.a-spacing-none') %>% 
+  html_text()
+monitor
+
+```
