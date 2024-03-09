@@ -64,12 +64,12 @@ connection <- dbConnect(RMySQL::MySQL(),
 ```{r}
 
 dbListTables(connection)
-dbListFields(connection,"reviews")
+dbListFields(connection,"review")
 
 ```
 
 ```{r}
-reviewData <- dbGetQuery(connection, "SELECT * FROM huervanalab3.reviews")
+reviewData <- dbGetQuery(connection, "SELECT * FROM huervanalab3.review")
 
 glimpse(reviewData)
 
@@ -78,8 +78,8 @@ glimpse(reviewData)
 
 ```{r}
 for (i in 1:nrow(reviews)) {
-  query <- paste0("INSERT INTO reviews (Title, Reviewer, ReviewDate, Rating, Review, ReviewTitle) 
-                  VALUES ('", reviews$Title[i],"','", reviews$reviewerName[i], "','", reviews$reviewDate[i],"','", reviews$reviewRating[i], "','",
+  query <- paste0("INSERT INTO review (Title, Reviewer, ReviewDate, Rating, Review, ReviewTitle) 
+                  VALUES ('", reviews$movieTitle[i],"','", reviews$reviewerName[i], "','", reviews$reviewDate[i],"','", reviews$reviewRating[i], "','",
                   gsub("'","''", reviews$reviewContent[i]), "','", gsub("'","''", reviews$reviewTitle[i]), "')")
   
   
@@ -93,12 +93,12 @@ for (i in 1:nrow(reviews)) {
 
 
 ```{r}
-checkdata <- dbGetQuery(connection, "SELECT * FROM huervanalab3.reviews")
+checkdata <- dbGetQuery(connection, "SELECT * FROM huervanalab3.review")
 
 
 checkdata[c(1:10),c(2:7)]
 
-#View(checkdata[,c(2:7)])
+View(checkdata[,c(2:7)])
 
 write.csv(checkdata[c(1:10),c(2:7)], "checkdata.csv")
 

@@ -440,25 +440,25 @@ library(RMySQL)</code></pre>
                         user = &quot;root&quot;, 
                         password = &quot;&quot;) </code></pre>
 <pre class="r"><code>dbListTables(connection)</code></pre>
-<pre><code>## [1] &quot;reviews&quot;</code></pre>
-<pre class="r"><code>dbListFields(connection,&quot;reviews&quot;)</code></pre>
+<pre><code>## [1] &quot;review&quot;  &quot;reviews&quot;</code></pre>
+<pre class="r"><code>dbListFields(connection,&quot;review&quot;)</code></pre>
 <pre><code>## [1] &quot;id&quot;          &quot;Title&quot;       &quot;Reviewer&quot;    &quot;ReviewDate&quot;  &quot;Rating&quot;     
 ## [6] &quot;Review&quot;      &quot;ReviewTitle&quot;</code></pre>
-<pre class="r"><code>reviewData &lt;- dbGetQuery(connection, &quot;SELECT * FROM huervanalab3.reviews&quot;)
+<pre class="r"><code>reviewData &lt;- dbGetQuery(connection, &quot;SELECT * FROM huervanalab3.review&quot;)
 
 glimpse(reviewData)</code></pre>
-<pre><code>## Rows: 20
+<pre><code>## Rows: 10
 ## Columns: 7
-## $ id          &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,…
-## $ Title       &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;…
+## $ id          &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+## $ Title       &lt;chr&gt; &quot;Shameless&quot;, &quot;Shameless&quot;, &quot;Shameless&quot;, &quot;Shameless&quot;, &quot;Shame…
 ## $ Reviewer    &lt;chr&gt; &quot;DiCaprioFan1&quot;, &quot;Supermanfan-13&quot;, &quot;Nightmarelogic&quot;, &quot;dv727…
 ## $ ReviewDate  &lt;chr&gt; &quot;25 December 2022&quot;, &quot;29 April 2022&quot;, &quot;12 April 2021&quot;, &quot;5 D…
 ## $ Rating      &lt;chr&gt; &quot;9/10&quot;, &quot;9/10&quot;, &quot;7/10&quot;, &quot;5/10&quot;, &quot;6/10&quot;, &quot;4/10&quot;, &quot;10/10&quot;, &quot;…
-## $ Review      &lt;chr&gt; &quot;I absolutely loved Shameless. It&#39;s only been off t&quot;, &quot;I&#39;v…
+## $ Review      &lt;chr&gt; &quot;I absolutely loved Shameless. It&#39;s only been off the air …
 ## $ ReviewTitle &lt;chr&gt; &quot;Loved This Show!&quot;, &quot;I miss it!&quot;, &quot;Good show should have e…</code></pre>
 <pre class="r"><code>for (i in 1:nrow(reviews)) {
-  query &lt;- paste0(&quot;INSERT INTO reviews (Title, Reviewer, ReviewDate, Rating, Review, ReviewTitle) 
-                  VALUES (&#39;&quot;, reviews$Title[i],&quot;&#39;,&#39;&quot;, reviews$reviewerName[i], &quot;&#39;,&#39;&quot;, reviews$reviewDate[i],&quot;&#39;,&#39;&quot;, reviews$reviewRating[i], &quot;&#39;,&#39;&quot;,
+  query &lt;- paste0(&quot;INSERT INTO review (Title, Reviewer, ReviewDate, Rating, Review, ReviewTitle) 
+                  VALUES (&#39;&quot;, reviews$movieTitle[i],&quot;&#39;,&#39;&quot;, reviews$reviewerName[i], &quot;&#39;,&#39;&quot;, reviews$reviewDate[i],&quot;&#39;,&#39;&quot;, reviews$reviewRating[i], &quot;&#39;,&#39;&quot;,
                   gsub(&quot;&#39;&quot;,&quot;&#39;&#39;&quot;, reviews$reviewContent[i]), &quot;&#39;,&#39;&quot;, gsub(&quot;&#39;&quot;,&quot;&#39;&#39;&quot;, reviews$reviewTitle[i]), &quot;&#39;)&quot;)
   
   
@@ -466,32 +466,32 @@ glimpse(reviewData)</code></pre>
   
   dbClearResult(query_result)
 }</code></pre>
-<pre class="r"><code>checkdata &lt;- dbGetQuery(connection, &quot;SELECT * FROM huervanalab3.reviews&quot;)
+<pre class="r"><code>checkdata &lt;- dbGetQuery(connection, &quot;SELECT * FROM huervanalab3.review&quot;)
 
 
 checkdata[c(1:10),c(2:7)]</code></pre>
-<pre><code>##    Title       Reviewer       ReviewDate Rating
-## 1          DiCaprioFan1 25 December 2022   9/10
-## 2        Supermanfan-13    29 April 2022   9/10
-## 3        Nightmarelogic    12 April 2021   7/10
-## 4                 dv727  5 December 2019   5/10
-## 5              lp-27434  25 January 2020   6/10
-## 6             agerson24 14 February 2019   4/10
-## 7              tomdavie    21 March 2011  10/10
-## 8                  ssih    29 April 2011  10/10
-## 9               Lukasmj 16 November 2022   9/10
-## 10             skysaxon  25 January 2011   8/10
-##                                                Review
-## 1  I absolutely loved Shameless. It&#39;s only been off t
-## 2  I&#39;ve loved Shameless ever since the beginning of S
-## 3  This is one of those shows that really did start o
-## 4  There was a time when I would have given this show
-## 5  The first few seasons of Shameless was very entert
-## 6  I used to love this show but the last few seasons 
-## 7  I have never watched the British version of this s
-## 8  I was halfway through the American series before I
-## 9  &quot;Shameless&quot; is a unique series that doesn&#39;t mince 
-## 10 Note: I have not seen the UK version.I wasn&#39;t sure
+<pre><code>##        Title       Reviewer       ReviewDate Rating
+## 1  Shameless   DiCaprioFan1 25 December 2022   9/10
+## 2  Shameless Supermanfan-13    29 April 2022   9/10
+## 3  Shameless Nightmarelogic    12 April 2021   7/10
+## 4  Shameless          dv727  5 December 2019   5/10
+## 5  Shameless       lp-27434  25 January 2020   6/10
+## 6  Shameless      agerson24 14 February 2019   4/10
+## 7  Shameless       tomdavie    21 March 2011  10/10
+## 8  Shameless           ssih    29 April 2011  10/10
+## 9  Shameless        Lukasmj 16 November 2022   9/10
+## 10 Shameless       skysaxon  25 January 2011   8/10
+##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Review
+## 1   I absolutely loved Shameless. It&#39;s only been off the air for like a year and a half and I already miss it. I know it was time for it to end as the quality of the show was going down in the last season but I still miss it. It&#39;s about a the lives of a dysfunctional family and how they stick together no matter what, except for their father who only cares about himself. This entire cast is just about perfect. They are led by William H Macy (Frank), Emmy Rossum (Fiona) &amp; Jeremy Allen White (Lip) who 
+## 2                                                                                                                                                                                     I&#39;ve loved Shameless ever since the beginning of Season 1 and now that it&#39;s over I really miss even though it was probably time for it to end! While it was still worth watching, it just wasn&#39;t the same once Emmy Rossum left. Shameless was such a great show for such a long time that it was hard to say goodbye...I miss it!
+## 3   This is one of those shows that really did start out as a very good show but sort of lost its steam around the fifth season and definitely once Fiona left the show. Maybe when the kids were young the antics they pulled were still cute but as they aged the felonies they committed felt more like felonies. Or maybe it was that none of them ever was allowed to get ahead for long. Whatever small steps ahead they took always came back to bite them and not just set them back to zero but even lower then
+## 4  There was a time when I would have given this show a 10 (or more if allowed.) That was then.\nSome reviews have been critical of the politics. I can&#39;t say I disagree, but I can tolerate those. The show has always been held out as a comedy. I did appreciate the humor, and a little bit of family love that went with it. It&#39;s just not funny any longer, and since the humor&#39;s gone, we&#39;re left with people who are just terrible individuals. It seems every time they strive to break out of the &quot;Gallagher t
+## 5   The first few seasons of Shameless was very entertaining and enjoyable, but it slowly lost its fire. By the end of season 9 I wasn&#39;t sure I wanted to watch season 10. Well after 2 episodes I couldn&#39;t handle it anymore. The writing is terrible and the characters suck. I know that several scenes were meant to be funny but there was no humor in the writing or the delivery.I agree that they write with a political agenda and it&#39;s not whether I agree or disagree but more importantly I tune into shows 
+## 6   I used to love this show but the last few seasons just keep getting progressively worse.. I am literally forcing myself to sit through episodes now.. This whole Fiona storyline happened in season 4. It&#39;s been played out already and now they are just recycling bad storylines. And now since Ian left they are randomly making other family members gay? Lip used to be this genius who could outsmart everyone and scam the system and it&#39;s like the writers have forgotten that the last couple seasons. Like
+## 7   I have never watched the British version of this show so I cannot comment on the original. I was under the impression it was a new Showtime story. I have to admit that started watching because I have always been a fan of William H Macy. However, viewing Macy in this kind of role was startling . I had always seen him in more conventional-almost typecast - parts. I knew that Joan Cusak was a quality actress which lent the project some further credibility. At first the show seemed to be almost forc
+## 8   I was halfway through the American series before I even KNEW there was a British series. I think a was a little disappointed that we didn&#39;t create it, but I was also happy that it was one of the few shows that we copied without ruining it. When I checked some of the user reviews, I was surprised to see how many thought the show to be appalling. OK, not everyone will share my love for the show, but to rate it SO badly? But when I looked, the author of nearly every bad review was a fan of the orig
+## 9   &quot;Shameless&quot; is a unique series that doesn&#39;t mince words.The characters in the series are brilliantly written and really grow on you over time, no matter what big jerks they are.The series is also incredibly funny, but also incredibly sad at times.In addition, two excellent actors were produced here with Cameron Monaghan and Jeremy Allen White, who both hopefully still have a huge career ahead of them.But the ending was unfortunately one of the worst I&#39;ve ever seen and doesn&#39;t fit into the usual 
+## 10  Note: I have not seen the UK version.I wasn&#39;t sure what to make of the first episode of Shameless. I wasn&#39;t sold on the characters and the direction seemed directionless. In fact, it wasn&#39;t until the third ep that my eyes were opened. It&#39;s as if the actors have found their mark and the characters have come to life. While the ensemble cast is solid, and Macy is at his irascible best, it is the performance of three of the actors which makes Shameless something special. Emmy Rossum, as the &#39;adult&#39; 
 ##                                                           ReviewTitle
 ## 1                                                    Loved This Show!
 ## 2                                                          I miss it!
@@ -503,7 +503,7 @@ checkdata[c(1:10),c(2:7)]</code></pre>
 ## 8          I&#39;ve seen both. The American is better. (But not by a lot)
 ## 9                                 Loved the series. Hated the ending.
 ## 10 Fluid direction, crisp script, helmed by trio of fine performances</code></pre>
-<pre class="r"><code>#View(checkdata[,c(2:7)])
+<pre class="r"><code>View(checkdata[,c(2:7)])
 
 write.csv(checkdata[c(1:10),c(2:7)], &quot;checkdata.csv&quot;)</code></pre>
 <pre class="r"><code>dbDisconnect(connection)</code></pre>
