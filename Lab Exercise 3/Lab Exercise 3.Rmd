@@ -1,0 +1,112 @@
+---
+title: "Lab Exercise 3"
+output:
+  html_document: default
+  pdf_document: default
+date: "2024-02-22"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(dplyr)
+library(rvest)
+library(polite)
+library(httr)
+
+
+reviews <- data.frame()
+
+link <- "https://www.imdb.com/title/tt1586680/reviews?ref_=tt_urv"
+session <- bow(link, user_agent = "Educational Purpose")
+
+scrapeNodes <- function(selector) {
+  scrape(session) %>%
+    html_nodes(selector) %>%
+    html_text(trim = TRUE)
+}
+
+titleMovie <- scrapeNodes("a.subnav_heading")
+reviewer <- scrapeNodes("span.display-name-link")[1:10]
+scrapedDate <- scrapeNodes("span.review-date")[1:10]
+scrapedRating <- scrapeNodes("span.rating-other-user-rating")[1:10]
+scrapedReview <- scrapeNodes("div.text.show-more__control")[1:10]
+scrapedTitleReview <- scrapeNodes("a.title")[1:10]
+
+reviews <- rbind(reviews, data.frame(
+  movieTitle = rep(titleMovie, 10),
+  reviewerName = reviewer,
+  reviewDate = scrapedDate,
+  reviewRating = scrapedRating,
+  reviewContent = scrapedReview,
+  reviewTitle = scrapedTitleReview
+))
+
+reviews
+
+```
+
+```{r}
+library(dplyr,dbplyr)
+library(RMySQL)
+
+connection <- dbConnect(RMySQL::MySQL(),
+                        dsn="MariaDB-connection",
+                        Server = "localhost",
+                        dbname = "huervanalab3", 
+                        user = "root", 
+                        password = "") 
+
+```
+
+```{r}
+
+dbListTables(connection)
+dbListFields(connection,"reviews")
+
+```
+
+```{r}
+reviewData <- dbGetQuery(connection, "SELECT * FROM huervanalab3.reviews")
+
+glimpse(reviewData)
+
+
+```
+
+```{r}
+for (i in 1:nrow(reviews)) {
+  query <- paste0("INSERT INTO reviews (Title, Reviewer, ReviewDate, Rating, Review, ReviewTitle) 
+                  VALUES ('", reviews$Title[i],"','", reviews$reviewerName[i], "','", reviews$reviewDate[i],"','", reviews$reviewRating[i], "','",
+                  gsub("'","''", reviews$reviewContent[i]), "','", gsub("'","''", reviews$reviewTitle[i]), "')")
+  
+  
+  query_result <- dbSendQuery(connection, query)
+  
+  dbClearResult(query_result)
+}
+
+```
+
+
+
+```{r}
+checkdata <- dbGetQuery(connection, "SELECT * FROM huervanalab3.reviews")
+
+
+checkdata[c(1:10),c(2:7)]
+
+#View(checkdata[,c(2:7)])
+
+write.csv(checkdata[c(1:10),c(2:7)], "checkdata.csv")
+
+
+```
+
+```{r}
+
+dbDisconnect(connection)
+
+```
