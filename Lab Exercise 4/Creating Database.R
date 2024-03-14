@@ -6,7 +6,7 @@
   #ACCESING DATABASE:
   
   
-  # cd  "E:\xampp\mysql\bin"
+  # cd  "C:\xampp\mysql\bin"
   # mysql -u root -p
   # CREATE DATABASE huervanalab4;
   # USE huervanalab4;
