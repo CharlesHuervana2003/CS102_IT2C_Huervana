@@ -1,6 +1,5 @@
 #Procedures
 
-
 |||||||||||||||||||||||||||||||
   
   #ACCESING DATABASE:
@@ -9,7 +8,7 @@
   # cd  "E:\xampp\mysql\bin"
   # mysql -u root -p
   # CREATE DATABASE huervanalab2DB;
-  # USE huervanalab3;
+  # USE huervanalab2DB;
   ||||||||||||||||||||||||||||||||
   
   #CREATING TABLE:
